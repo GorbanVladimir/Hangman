@@ -20,11 +20,6 @@
 <body>
     <div class="card text-center">
         <div class="card-header">
-            <div class="card-header" id="inputAndButtonDelete">
-                    <input type="text" id="addWord">
-                <button type="button" class="btn btn-success" id="inputButton" onclick="addWord()">Add Word</button>
-                <p class="card-text">Enter the word you want to guess</p>
-            </div>
             <label id="image">
             </label>
             <table class="table">
@@ -34,9 +29,9 @@
         </div>
         <div class="card-body" id="cardBody">
             <h5 class="card-title">Hangman</h5>
-            <p class="card-text">Enter a letter to guess the word</p>
-            <input type="text" id="check">
-            <button type="button" class="btn btn-info" id="checkButton" onclick="checkTheLetter()">Check</button>
+            <p class="card-text">Type the word you want to guess then click OK</p>
+            <label for="input"></label><input type="text" id="input" placeholder="Type a word">
+            <input type="button" value="OK"  id="inputButton" onclick="wordInitiation()">
         </div>
         <div class="card-footer text-muted" id="alert">
         </div>
