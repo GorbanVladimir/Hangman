@@ -6,6 +6,10 @@ let image = document.getElementById('image')
 let alerts = document.getElementById('alert')
 let searchedLetters = ''
 
+function printMessage (alertType, message) {
+    alerts.innerHTML = `<div class="alert alert-${alertType}" role="alert">${message}</div>`
+}
+
 function reload () {
     location.reload()
 }
@@ -16,7 +20,7 @@ function addRestartButton () {
 
 function checkLetterSearched (currentLetter) {
     if (searchedLetters.indexOf(currentLetter) >= 0) {
-        alerts.innerHTML = `<div class="alert alert-dark" role="alert">'${currentLetter}' has already been introduced</div>`
+        printMessage('dark',`'${currentLetter}' has already been introduced`)
         input.value = ''
         return 0
     }
@@ -48,7 +52,7 @@ function clearSectionBody () {
 
 function createSection () {
     for (let i = 0; i < specialWord.length; ++i) {
-        sectionBody.innerHTML += `<th id="letterNumber ${i}"></th>`
+        sectionBody.innerHTML += `<td id="letterNumber ${i}"></td>`
     }
 }
 
@@ -62,7 +66,7 @@ function wordInitiation () {
     } else if (specialWord === '') {
         alerts.innerHTML = '<div class="alert alert-warning" role="alert">First type a word :D!</div>'
     } else if (!isAWord(specialWord)) {
-        alerts.innerHTML = '<div class="alert alert-warning" role="alert">Is not a word!</div>'
+        printMessage('warning', 'Is not a word')
         input.value = ''
     }
 }
@@ -77,7 +81,7 @@ function checkTheLetter () {
         let indexOfTheLetter = specialWord.indexOf(inputLetter)
         if (indexOfTheLetter >= 0 && checkLetterSearched(inputLetter) < 0) {
             searchedLetters += inputLetter
-            alerts.innerHTML = '<div class="alert alert-info" role="alert">RIGHT!\n</div>'
+            printMessage('info', 'RIGHT!')
             do {
                 ++counterSuccess
                 let section = document.getElementById(`letterNumber ${indexOfTheLetter}`)
@@ -85,27 +89,27 @@ function checkTheLetter () {
                 indexOfTheLetter = specialWord.indexOf(inputLetter, ++indexOfTheLetter)
                 input.value = ''
                 if (counterSuccess === specialWord.length) {
-                    alerts.innerHTML = '<div class="alert alert-success" role="alert">YOU GUESSED IT!</div>'
+                    printMessage('success', 'YOU GUESSED IT!')
                     addRestartButton()
                 }
             } while (indexOfTheLetter >= 0)
         } else if (indexOfTheLetter < 0 && counterChance < 10) {
-            alerts.innerHTML = `<div class="alert alert-warning" role="alert">Is incorrect, but you still have&nbsp;${10 - counterChance}&nbsp;chances!</div>`
+            printMessage('warning', `Is incorrect, but you still have&nbsp;${10 - counterChance}&nbsp;chances!`)
             let img = document.getElementById('image')
             img.innerHTML = `<img src="Images/${counterChance}.jpg" alt="HangmanSteps">`
             ++counterChance
             input.value = ''
         } else if (indexOfTheLetter < 0 && counterChance >= 10) {
             document.getElementById('image').innerHTML = `<img src="Images/${counterChance}.jpg" alt="HangmanSteps">`
-            alerts.innerHTML = '<div class="alert alert-danger" role="alert">MAYBE NEXT TIME!</div>'
+            printMessage('danger', 'MYBE NEXT TIME!')
             sectionBody.innerHTML = `<p>THE WORD YOU MISSED : ${specialWord}</p>`
             addRestartButton()
         }
     } else if (!isALetter(inputLetter)) {
-        alerts.innerHTML = '<div class="alert alert-warning" role="alert">It is not a letter!</div>'
+        printMessage('warning', 'It is not a letter!')
         input.value = ''
     } else if (inputLetter.length !== 1) {
-        alerts.innerHTML = '<div class="alert alert-warning" role="alert">Type only one letter please</div>'
+        printMessage('warning', 'Type only one letter please')
         input.value = ''
     }
 }
