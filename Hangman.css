@@ -1,0 +1,11 @@
+td {
+    border: 1px solid black;
+}
+
+.table {
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background: #00CED1;
+    width: 50%;
+}
